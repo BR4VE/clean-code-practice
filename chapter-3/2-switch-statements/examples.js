@@ -2,14 +2,14 @@
 // Switch statements should be hidden behind an inheritance relationship,
 // so that the rest of the system cannot see it and prevent repetitive code
 
-class  {
+class Employee {
   calculatePay(e) {
-    switch(e.type) {
+    switch (e.type) {
       case COMMISSIONED:
         return calculateCommissionedPay(e);
       case HOURLY:
         return calculateHourlyPay(e);
-      case SALARIED: 
+      case SALARIED:
         return calculateSalariedPay(e);
 
       default:
@@ -27,23 +27,23 @@ class Employee {
   isPayday() {}
   calculatePay() {}
   deliverPay(pay) {}
- }
+}
 
- class EmployeeFactory {
-   makeEmployee(r) {
-     switch(r.type) {
-       case COMMISSIONED:
-         return new CommissionedEmployee(r);
-        case HOURLY:
-          return new HourlyEmployee(r);
-        case SALARIED:
-          return new SalariedEmployee(r);
+class EmployeeFactory {
+  makeEmployee(r) {
+    switch (r.type) {
+      case COMMISSIONED:
+        return new CommissionedEmployee(r);
+      case HOURLY:
+        return new HourlyEmployee(r);
+      case SALARIED:
+        return new SalariedEmployee(r);
 
-        default:
-          break;
-     }  
-   }
- }
+      default:
+        break;
+    }
+  }
+}
 
 // The switch statment is burried under implementations so other functions does
 // not have to check the type again

@@ -3,11 +3,11 @@
 // then spend the time necessary to make sure it is the best
 // Do not mumble
 
-class {
+class File {
   loadProperties() {
     try {
       loadedProperties.load("stream.inu");
-    } catch(e) {
+    } catch (e) {
       // No properties files means all defaults are loaded
     }
   }
@@ -25,12 +25,12 @@ class ContainerBase {
   constructor() {
     /**
      * The processor delay for this component
-     */  
+     */
     this.backgroundProcessorDelay = -1;
-    
+
     /**
      * The lifecycle event support for this component
-     */  
+     */
     const lifecycle = new LifecycleSupport(this);
   }
 }
@@ -48,13 +48,14 @@ class GeneratePrimes {
    * @param maxValue is the generation limit
    */
   static generatePrimes(maxValue) {
-    if(maxValue >= 2) { // the only valid case
+    if (maxValue >= 2) {
+      // the only valid case
       // declerations
       const s = maxValue + 1; // size of array
       const f = new Array(s);
       let i;
       // initialize array to true;
-      for(i = 0; i < s; i++) {
+      for (i = 0; i < s; i++) {
         f[i] = true;
       }
 
@@ -63,9 +64,10 @@ class GeneratePrimes {
 
       // sieve
       let j;
-      for(i = 2;i < Math.sqrt(s) + 1; i++) {
-        if(f[i]) { // if i is uncrosed, cross its multiples
-          for(j = 2 * i; j < s; j += i) {
+      for (i = 2; i < Math.sqrt(s) + 1; i++) {
+        if (f[i]) {
+          // if i is uncrosed, cross its multiples
+          for (j = 2 * i; j < s; j += i) {
             f[j] = false; // multiple is not prime
           }
         }
@@ -73,25 +75,26 @@ class GeneratePrimes {
 
       // how many primes are there?
       let count = 0;
-      for(i = 0; i < s; i++) {
-        if(f[i]) {
+      for (i = 0; i < s; i++) {
+        if (f[i]) {
           count++; // bump count
         }
       }
       const primes = new Array(count);
 
       // move the primes into the result
-      for(i = 0, j = 0; i < s; i++) {
-        if(f[i]) {  // if prime
+      for (i = 0, j = 0; i < s; i++) {
+        if (f[i]) {
+          // if prime
           primes[j++] = i;
         }
       }
 
       return primes; // return the primes
-    }
-    else { // maxValue < 2
+    } else {
+      // maxValue < 2
       return [null];
-    } 
+    }
   }
 }
 
@@ -103,7 +106,7 @@ class PrimeGenerator {
     this.result = [];
   }
   generatePrimes(maxValue) {
-    if(maxValue < 2) return [null];
+    if (maxValue < 2) return [null];
     else {
       this.uncrossIntegersUpTo(maxValue);
       this.crossOutMultiples();
@@ -112,17 +115,17 @@ class PrimeGenerator {
     }
   }
 
-   uncrossIntegersUpTo(maxValue) {
+  uncrossIntegersUpTo(maxValue) {
     this.crossedOut = new Array(maxValue + 1);
-    for(let i = 2; i < this.crossedOut.length; i++) {
+    for (let i = 2; i < this.crossedOut.length; i++) {
       this.crossedOut[i] = false;
     }
   }
 
   crossOutMultiples() {
     const limit = this.determineIterationLimit();
-    for(let i = 2; i <= limit; i++) {
-      if(this.notCrossed(i)) {
+    for (let i = 2; i <= limit; i++) {
+      if (this.notCrossed(i)) {
         this.crossedOutMultiplesOf(i);
       }
     }
@@ -138,7 +141,11 @@ class PrimeGenerator {
   }
 
   crossOutMultiplesOf(i) {
-    for(let multiple = 2 * i; multiple < this.crossedOut.length; multiple += i) {
+    for (
+      let multiple = 2 * i;
+      multiple < this.crossedOut.length;
+      multiple += i
+    ) {
       this.crossedOut[multiple] = true;
     }
   }
@@ -149,6 +156,3 @@ class PrimeGenerator {
 }
 
 //--------------------------------------------------------------------------------
-
-
-
