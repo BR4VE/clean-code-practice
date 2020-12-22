@@ -25,7 +25,7 @@ class Book {
     }
   }
 
-  #deletePageAndAllReferences(page) {
+  deletePageAndAllReferences(page) {
     deletePageFromDb(page);
     registry.deleteReference(page.name);
     configKeys.deleteKey(page.name.makeKey());
