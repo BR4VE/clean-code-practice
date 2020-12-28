@@ -167,3 +167,39 @@ class Args {
 }
 
 // I need to admit that we loose some part of our explicitness
+
+//------------------------------------------------------------------------
+
+// Question 3:
+// Would not it be better if we replace one letter variable names with
+// meaningful expressive names
+
+const parseArgumentCharacters = (argChar) => {
+  const m = this.marshallers.get(argChar);
+  if (m == null) {
+    throw new ArgsError(UNEXPECTED_ARGUMENT, argChar, null);
+  } else {
+    this.argsFound.set(argChar);
+    try {
+      m.set(this.currentArgument);
+    } catch (e) {
+      throw e;
+    }
+  }
+};
+
+// In the above code (from my perspective) it is to forget what m represents
+
+const parseArgumentCharacters = (argChar) => {
+  const marshaller = this.marshallers.get(argChar);
+  if (marshaller == null) {
+    throw new ArgsError(UNEXPECTED_ARGUMENT, argChar, null);
+  } else {
+    this.argsFound.set(argChar);
+    try {
+      marshaller.set(this.currentArgument);
+    } catch (e) {
+      throw e;
+    }
+  }
+};
